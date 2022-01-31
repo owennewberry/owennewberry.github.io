@@ -35,6 +35,7 @@ var bj = {
     document.getElementById("playc-start").onclick = bj.start;
     document.getElementById("playc-hit").onclick = bj.hit;
     document.getElementById("playc-stand").onclick = bj.stand;
+    document.getElementById("playc-stand").onclick = bj.stand;
   },
 
   // (C) START NEW GAME
