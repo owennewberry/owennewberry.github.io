@@ -30,11 +30,14 @@ var bj = {
     bj.hppoints = document.getElementById("play-points");
     bj.hphand = document.getElementById("play-cards");
     bj.hpcon = document.getElementById("play-control");
+    
+    let btn = document.createElement("button");
+btn.innerHTML = "Click Me";
+document.body.appendChild(btn);
 
     // (B2) ATTACH ONCLICK EVENTS
     document.getElementById("playc-start").onclick = bj.start;
     document.getElementById("playc-hit").onclick = bj.hit;
-    document.getElementById("playc-stand").onclick = bj.stand;
     document.getElementById("playc-stand").onclick = bj.stand;
   },
 
