@@ -166,6 +166,8 @@ async def on_message(message):
         nftList.write(nft+"-"+author+"\n")
         nftList.close()
         db[author] -= 10000
+        updateDatabase()
+  os.system('git commit -a -m "Describe your commit here"')
   time.sleep(.25)
 
 time.sleep(.25)
