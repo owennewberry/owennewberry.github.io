@@ -2,6 +2,10 @@ import discord
 import os
 import random
 from replit import db
+import requests
+
+#response = requests.get(your_url)
+#remaining_requests = response.headers.get('X-RateLimit-Remaining')
 
 numbers = "0123456789"
 leaderboard = []
