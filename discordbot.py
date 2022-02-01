@@ -3,11 +3,21 @@ import os
 import random
 from replit import db
 
+numbers = "0123456789"
+leaderboard = []
+coinflipActive = False
+
 with open("dostotcoin.txt") as f:
   for line in f:
-    key = line.split("-")[0])
-    value = line.split("-")[1])
+    key = line.split("-")[0]
+    strValue = line.split("-")[1]
+    value = 0
+    for i in range(len(strValue)):
+      if strValue[i] in numbers:
+        value = value*10
+        value += numbers.index(strValue[i])
     db[key] = value
+  f.close()
 
 keys = db.keys()
 
@@ -26,10 +36,6 @@ def updateDatabase():
   dst.close()
 
 updateDatabase()
-
-numbers = "0123456789"
-leaderboard = []
-coinflipActive = False
 
 def checkBalance(author):
   keys = db.keys()
