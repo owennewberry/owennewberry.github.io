@@ -3,6 +3,12 @@ import os
 import random
 from replit import db
 
+with open("dostotcoin.txt") as f:
+  for line in f:
+    key = line.split("-")[0])
+    value = line.split("-")[1])
+    db[key] = value
+
 keys = db.keys()
 
 print(keys)
