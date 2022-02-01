@@ -168,9 +168,7 @@ async def on_message(message):
         db[author] -= 10000
         updateDatabase()
   os.system('git commit -a -m "Describe your commit here"')
-  os.system('git push')
-  os.system(os.environ['githubUsername'])
-  os.system(os.environ['githubToken'])
+  os.system('git push '+os.environ['githubUsername']+' '+os.environ['githubToken'])
   time.sleep(.25)
 
 time.sleep(.25)
