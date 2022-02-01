@@ -3,6 +3,7 @@ import os
 import random
 from replit import db
 import requests
+import time
 
 #response = requests.get(your_url)
 #remaining_requests = response.headers.get('X-RateLimit-Remaining')
@@ -165,5 +166,8 @@ async def on_message(message):
         nftList.write(nft+"-"+author+"\n")
         nftList.close()
         db[author] -= 10000
+  time.sleep(.25)
+
+time.sleep(.25)
 
 client.run(os.environ['TOKEN'])
