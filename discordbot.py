@@ -38,9 +38,6 @@ def updateDatabase():
   dst = open("dostotcoin.txt", "w")
   for key in keys:
     dst.write(key+"-"+str(db[key])+"\n")
-    author_url = open("user/"+key+".html", "w")
-    author_url.write(key+"-"+str(db[key])+"\n")
-    author_url.close()
   dst.close()
 
 updateDatabase()
