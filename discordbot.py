@@ -48,6 +48,9 @@ def checkBalance(author):
     return
   else:
     db[author] = 100
+    author_url = open(author+".html", "w")
+    author_url.close()
+    
 
 client = discord.Client()
 
