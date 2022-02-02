@@ -2,8 +2,8 @@ import discord
 import os
 import random
 from replit import db
-import requests
 import time
+import slots
 
 #response = requests.get(your_url)
 #remaining_requests = response.headers.get('X-RateLimit-Remaining')
@@ -50,6 +50,8 @@ def checkBalance(author):
     db[author] = 100
     author_url = open("user/"+author+".html", "w")
     author_url.close()
+
+
     
 
 client = discord.Client()
@@ -159,6 +161,17 @@ async def on_message(message):
             checkBalance(author)
             updateDatabase()
             await message.channel.send("It was "+coinflip+"! You lost "+str(bet)+" D$T!"+"\n"+"You have "+str(db[author])+" DostotCoin in your wallet.")
+      if message.content.startswith("dst slots"):
+        mes = message.content.split()
+        timesStr = mes[2]
+        times = int(timesStr)
+        if times <= db[author]:
+          profit = slots.play(author)
+          profit = times*profit
+          db[author] += profit
+          await message.channel.send("You won "+str(profit)+" D$T!")
+        else:
+          await message.channel.send("Error!")
 
     if message.channel.id == 937729708991324190:
       messageList = message.content.split()

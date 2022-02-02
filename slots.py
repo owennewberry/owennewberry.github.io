@@ -1,24 +1,14 @@
 import random
 import time
-import os
+from replit import db
 
-msg = ""
+player = ""
 
-msg += '''Welcome to the Slot Machine
-To win you must get one of the following combinations:
-BAR\tBAR\tBAR\t\tpays\t£250
-BELL\tBELL\tBELL/BAR\tpays\t£20
-PLUM\tPLUM\tPLUM/BAR\tpays\t£14
-ORANGE\tORANGE\tORANGE/BAR\tpays\t£10
-CHERRY\tCHERRY\tCHERRY\t\tpays\t£7
-CHERRY\tCHERRY\t  -\t\tpays\t£5
-CHERRY\t  -\t  -\t\tpays\t£2
-7\t  7\t  7\t\tpays\t The Jackpot!
-'''
+#slotsMsg = "Welcome to the Slot Machine! To win you must get one of the following combinations:\n"+"BAR\tBAR\tBAR\t\tpays\t$250\n"+"BELL\tBELL\tBELL/BAR\tpays\t$20\n"+"PLUM\tPLUM\tPLUM/BAR\tpays\t$14\n"+"ORANGE\tORANGE\tORANGE/BAR\tpays\t$10\n"+"CHERRY\tCHERRY\tCHERRY\t\tpays\t$7\n"+"CHERRY\tCHERRY\t  -\t\tpays\t$5\n"+"CHERRY\t  -\t  -\t\tpays\t$2\n"+"7\t  7\t  7\t\tpays\t The Jackpot!\n"
 
 #Constants:
-INIT_STAKE = 50
-INIT_BALANCE = 1000
+INIT_STAKE = 0
+INIT_BALANCE = db["jackpot"]
 ITEMS = ["CHERRY", "LEMON", "ORANGE", "PLUM", "BELL", "BAR", "7"]
 
 firstWheel = None
@@ -27,32 +17,15 @@ thirdWheel = None
 stake = INIT_STAKE
 balance = INIT_BALANCE
 
-def play():
+def play(author):
+    INIT_STAKE = db[author]
+    if db[author] < 1:
+      return
     global stake, firstWheel, secondWheel, thirdWheel
-    playQuestion = askPlayer()
-    while(stake != 0 and playQuestion == True):
-        firstWheel = spinWheel()
-        secondWheel = spinWheel()
-        thirdWheel = spinWheel()
-        printScore()
-        playQuestion = askPlayer()
-
-def askPlayer():
-    '''
-    Asks the player if he wants to play again.
-    expecting from the user to answer with yes, y, no or n
-    No case sensitivity in the answer. yes, YeS, y, y, nO . . . all works
-    '''
-    global stake
-    global balance
-    while(True):
-        os.system('cls' if os.name == 'nt' else 'clear')
-        if (balance <=1):
-            print ("Machine balance reset.")
-            balance = 1000
-
-        print ("The Jackpot is currently: £" + str(balance) + ".")
-        return True
+    firstWheel = spinWheel()
+    secondWheel = spinWheel()
+    thirdWheel = spinWheel()
+    return printScore(author)
 
 def spinWheel():
     '''
@@ -61,7 +34,7 @@ def spinWheel():
     randomNumber = random.randint(0, 5)
     return ITEMS[randomNumber]
 
-def printScore():
+def printScore(author):
     '''
     prints the current score
     '''
@@ -95,15 +68,12 @@ def printScore():
         balance = balance + 1
 
     stake += win
+    db["jackpot"] = balance
     if win == balance:
-        print ("You won the JACKPOT!!")
+        result = win
     if(win > 0):
-        print(firstWheel + '\t' + secondWheel + '\t' + thirdWheel + ' -- You win £' + str(win))
-        time.sleep(3)
-        os.system('cls' if os.name == 'nt' else 'clear')
+        result = win
     else:
-        print(firstWheel + '\t' + secondWheel + '\t' + thirdWheel + ' -- You lose')
-        time.sleep(2)
-        os.system('cls' if os.name == 'nt' else 'clear')
-
-play()
+        result = -1
+    return result
+    
