@@ -3,8 +3,7 @@ const line = "-".repeat(process.stdout.columns);
 const chalk = require("chalk");
 
 var playerTotal, dealerTotal, card, id, playerAces, dealerAces, textPlayer, textDealer, num, text1, answer, resp, stakeTemp, stake, playerCardNum, double, split, splitVal, playerBust, originalStake, payout;
-var bank = 0
-var playerCards = [];
+var bank = 0, playerCards = [];
 
 //Number set for cards
 const count = [2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11];
