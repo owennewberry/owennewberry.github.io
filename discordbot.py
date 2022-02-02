@@ -38,6 +38,9 @@ def updateDatabase():
   dst = open("dostotcoin.txt", "w")
   for key in keys:
     dst.write(key+"-"+str(db[key])+"\n")
+    author_url = open("user/"+key+".md", "w")
+    author_url.write(key+"-"+str(db[key])+"\n")
+    author_url.close()
   dst.close()
 
 updateDatabase()
@@ -48,7 +51,7 @@ def checkBalance(author):
     return
   else:
     db[author] = 100
-    author_url = open(author+"/index.html", "w")
+    author_url = open("user/"+author+".md", "w")
     author_url.close()
     
 
