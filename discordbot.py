@@ -5,8 +5,6 @@ from replit import db
 import requests
 import time
 
-os.system('git config --global credential.helper wincred')
-
 #response = requests.get(your_url)
 #remaining_requests = response.headers.get('X-RateLimit-Remaining')
 
