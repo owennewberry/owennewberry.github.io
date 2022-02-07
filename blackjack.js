@@ -19,7 +19,6 @@ var bj = {
   dstand : false, // dealer has stood
   pstand : false, // player has stood
   turn : 0,       // who's turn now? 0 for player, 1 for dealer (computer)
-  bet : 0
 
   // (B) INITIALIZE GAME
   init : () => {
@@ -37,8 +36,6 @@ var bj = {
     document.getElementById("playc-start").onclick = bj.start;
     document.getElementById("playc-hit").onclick = bj.hit;
     document.getElementById("playc-stand").onclick = bj.stand;
-
-    bj.bet = document.getElementById("play-bet").value;
   },
 
   // (C) START NEW GAME
@@ -157,11 +154,11 @@ var bj = {
       }
       // PLAYER WINS
       if (winner==null && bj.ppoints==21) {
-        winner = 0; message = "Player wins with a Blackjack! You won "+bj.bet+" D$T!";
+        winner = 0; message = "Player wins with a Blackjack! You won "+document.getElementById("play-bet").value+" D$T!";
       }
       // DEALER WINS
       if (winner==null && bj.dpoints==21) {
-        winner = 1; message = "Dealer wins with a Blackjack! You lost "+bj.bet+" D$T!";
+        winner = 1; message = "Dealer wins with a Blackjack! You lost "+document.getElementById("play-bet").value+" D$T!";
       }
     }
 
@@ -169,11 +166,11 @@ var bj = {
     if (winner == null) {
       // PLAYER GONE BUST
       if (bj.ppoints>21) {
-        winner = 1; message = "Player has gone bust - Dealer wins! You lost "+bj.bet+" D$T!";
+        winner = 1; message = "Player has gone bust - Dealer wins! You lost "+document.getElementById("play-bet").value+" D$T!";
       }
       // DEALER GONE BUST
       if (bj.dpoints>21) {
-        winner = 0; message = "Dealer has gone bust - Player wins! You won "+bj.bet+" D$T!";
+        winner = 0; message = "Dealer has gone bust - Player wins! You won "+document.getElementById("play-bet").value+" D$T!";
       }
     }
 
@@ -181,11 +178,11 @@ var bj = {
     if (winner == null && bj.dstand && bj.pstand) {
       // DEALER HAS MORE POINTS
       if (bj.dpoints > bj.ppoints) {
-        winner = 1; message = "Dealer wins with " + bj.dpoints + " points! You lost "+bj.bet+" D$T!";
+        winner = 1; message = "Dealer wins with " + bj.dpoints + " points! You lost "+document.getElementById("play-bet").value+" D$T!";
       }
       // PLAYER HAS MORE POINTS
       else if (bj.dpoints < bj.ppoints) {
-        winner = 0; message = "Player wins with " + bj.ppoints + " points! You won "+bj.bet+" D$T!";
+        winner = 0; message = "Player wins with " + bj.ppoints + " points! You won "+document.getElementById("play-bet").value+" D$T!";
       }
       // TIE
       else {
