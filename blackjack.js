@@ -41,6 +41,8 @@ var bj = {
 
   // (C) START NEW GAME
   start : () => {
+    bj.bet = document.getElementById("play-bet");
+
     // (C1) RESET POINTS, HANDS, DECK, TURN, AND HTML
     bj.deck = [];  bj.dealer = [];  bj.player = [];
     bj.dpoints = 0;  bj.ppoints = 0;
@@ -68,6 +70,7 @@ var bj = {
     // (C3) DRAW FIRST 4 CARDS
     bj.turn = 0; bj.draw(); bj.turn = 1; bj.draw();
     bj.turn = 0; bj.draw(); bj.turn = 1; bj.draw();
+    
 
     // (C4) LUCKY 21 ON FIRST DRAW?
     bj.turn = 0; bj.points();
@@ -153,11 +156,11 @@ var bj = {
       }
       // PLAYER WINS
       if (winner==null && bj.ppoints==21) {
-        winner = 0; message = "Player wins with a Blackjack!";
+        winner = 0; message = "Player wins with a Blackjack! You won "+bj.bet+"D$T!";
       }
       // DEALER WINS
       if (winner==null && bj.dpoints==21) {
-        winner = 1; message = "Dealer wins with a Blackjack!";
+        winner = 1; message = "Dealer wins with a Blackjack! You lost "+bj.bet+"D$T!";
       }
     }
 
@@ -165,11 +168,11 @@ var bj = {
     if (winner == null) {
       // PLAYER GONE BUST
       if (bj.ppoints>21) {
-        winner = 1; message = "Player has gone bust - Dealer wins!";
+        winner = 1; message = "Player has gone bust - Dealer wins! You lost "+bj.bet+"D$T!";
       }
       // DEALER GONE BUST
       if (bj.dpoints>21) {
-        winner = 0; message = "Dealer has gone bust - Player wins!";
+        winner = 0; message = "Dealer has gone bust - Player wins! You won "+bj.bet+"D$T!";
       }
     }
 
@@ -177,11 +180,11 @@ var bj = {
     if (winner == null && bj.dstand && bj.pstand) {
       // DEALER HAS MORE POINTS
       if (bj.dpoints > bj.ppoints) {
-        winner = 1; message = "Dealer wins with " + bj.dpoints + " points!";
+        winner = 1; message = "Dealer wins with " + bj.dpoints + " points! You lost "+bj.bet+"D$T!";
       }
       // PLAYER HAS MORE POINTS
       else if (bj.dpoints < bj.ppoints) {
-        winner = 0; message = "Player wins with " + bj.ppoints + " points!";
+        winner = 0; message = "Player wins with " + bj.ppoints + " points! You won "+bj.bet+"D$T!";
       }
       // TIE
       else {
