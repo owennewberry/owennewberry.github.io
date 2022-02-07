@@ -19,6 +19,7 @@ var bj = {
   dstand : false, // dealer has stood
   pstand : false, // player has stood
   turn : 0,       // who's turn now? 0 for player, 1 for dealer (computer)
+  bet : 0,        //player bet in D$T
 
   // (B) INITIALIZE GAME
   init : () => {
@@ -30,6 +31,7 @@ var bj = {
     bj.hppoints = document.getElementById("play-points");
     bj.hphand = document.getElementById("play-cards");
     bj.hpcon = document.getElementById("play-control");
+    
 
     // (B2) ATTACH ONCLICK EVENTS
     document.getElementById("playc-start").onclick = bj.start;
