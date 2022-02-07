@@ -1,5 +1,4 @@
 import random
-import time
 from replit import db
 
 player = ""
@@ -31,7 +30,7 @@ def spinWheel():
     '''
     returns a random item from the wheel
     '''
-    randomNumber = random.randint(0, 5)
+    randomNumber = random.randint(0, 6)
     return ITEMS[randomNumber]
 
 def printScore(author):
@@ -68,7 +67,6 @@ def printScore(author):
         balance = balance + 1
 
     stake += win
-    db["jackpot"] = balance
     if win == balance:
         result = win
     if(win > 0):

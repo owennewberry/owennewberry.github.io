@@ -68,6 +68,8 @@ async def on_message(message):
       if message.content.count(temp[0]) > 0 and temp[1] != author:
         await message.delete()
     if message.channel.id == 936277008474845224:
+      if message.content.startswith("dst lost"):
+        await message.channel.send("A total of "+str(db["moneyLost"])+" D$T has been lost while gambling!")
       if message.content.startswith("dst balance"):
         checkBalance(author)
         updateDatabase()
@@ -100,6 +102,8 @@ async def on_message(message):
         for x in keys:
           list.append(str(x))
         list.remove("mineshaft")
+        list.remove("jackpot")
+        list.remove("moneyLost")
         value = 0
         leaderboard = []
         while len(list) > 0:
@@ -158,6 +162,7 @@ async def on_message(message):
             invalid = False
           else:
             db[author] -= bet
+            db["moneyLost"] += bet
             checkBalance(author)
             updateDatabase()
             await message.channel.send("It was "+coinflip+"! You lost "+str(bet)+" D$T!"+"\n"+"You have "+str(db[author])+" DostotCoin in your wallet.")
@@ -169,9 +174,15 @@ async def on_message(message):
           profit = slots.play(author)
           profit = times*profit
           db[author] += profit
-          await message.channel.send("You won "+str(profit)+" D$T!")
+          db["jackpot"] -= profit
+          if profit < 0:
+            db["moneyLost"] -= profit
+          if db["jackpot"] < 0:
+            db["jackpot"] = 0
+          await message.channel.send("You netted "+str(profit)+" D$T!\nJackpot is "+str(db["jackpot"])+"!")
         else:
           await message.channel.send("Error!")
+        updateDatabase()
 
     if message.channel.id == 937729708991324190:
       messageList = message.content.split()
