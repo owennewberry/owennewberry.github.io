@@ -19,6 +19,7 @@ var bj = {
   dstand : false, // dealer has stood
   pstand : false, // player has stood
   turn : 0,       // who's turn now? 0 for player, 1 for dealer (computer)
+  bet : 0
 
   // (B) INITIALIZE GAME
   init : () => {
@@ -36,7 +37,8 @@ var bj = {
     document.getElementById("playc-start").onclick = bj.start;
     document.getElementById("playc-hit").onclick = bj.hit;
     document.getElementById("playc-stand").onclick = bj.stand;
-    document.getElementById("play-bet").oninput = bj.bet;
+
+    bj.bet = document.getElementById("play-bet").value;
   },
 
   // (C) START NEW GAME
