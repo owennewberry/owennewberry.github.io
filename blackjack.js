@@ -1,3 +1,6 @@
+const Database = require("@replit/database")
+const db = new Database()
+
 var bj = {
   // (A) PROPERTIES
   // (A1) HTML REFERENCES
@@ -19,6 +22,8 @@ var bj = {
   dstand : false, // dealer has stood
   pstand : false, // player has stood
   turn : 0,       // who's turn now? 0 for player, 1 for dealer (computer)
+  bet : 0,
+  name : "",
 
   // (B) INITIALIZE GAME
   init : () => {
@@ -40,6 +45,8 @@ var bj = {
 
   // (C) START NEW GAME
   start : () => {
+    bj.bet = document.getElementById("play-bet").value
+    bj.name = document.getElementById("play-name").value
 
     // (C1) RESET POINTS, HANDS, DECK, TURN, AND HTML
     bj.deck = [];  bj.dealer = [];  bj.player = [];
@@ -154,11 +161,13 @@ var bj = {
       }
       // PLAYER WINS
       if (winner==null && bj.ppoints==21) {
-        winner = 0; message = "Player wins with a Blackjack! You won "+document.getElementById("play-bet").value+" D$T!";
+        winner = 0; message = "Player wins with a Blackjack! You won "+bj.bet+" D$T!";
+        db.set(bj.name, db.get(bj.name)+bj.bet);
       }
       // DEALER WINS
       if (winner==null && bj.dpoints==21) {
-        winner = 1; message = "Dealer wins with a Blackjack! You lost "+document.getElementById("play-bet").value+" D$T!";
+        winner = 1; message = "Dealer wins with a Blackjack! You lost "+bj.bet+" D$T!";
+        db.set(bj.name, db.get(bj.name)-bj.bet);
       }
     }
 
@@ -166,11 +175,13 @@ var bj = {
     if (winner == null) {
       // PLAYER GONE BUST
       if (bj.ppoints>21) {
-        winner = 1; message = "Player has gone bust - Dealer wins! You lost "+document.getElementById("play-bet").value+" D$T!";
+        winner = 1; message = "Player has gone bust - Dealer wins! You lost "+bj.bet+" D$T!";
+        db.set(bj.name, db.get(bj.name)-bj.bet);
       }
       // DEALER GONE BUST
       if (bj.dpoints>21) {
-        winner = 0; message = "Dealer has gone bust - Player wins! You won "+document.getElementById("play-bet").value+" D$T!";
+        winner = 0; message = "Dealer has gone bust - Player wins! You won "+bj.bet+" D$T!";
+        db.set(bj.name, db.get(bj.name)+bj.bet);
       }
     }
 
@@ -178,11 +189,13 @@ var bj = {
     if (winner == null && bj.dstand && bj.pstand) {
       // DEALER HAS MORE POINTS
       if (bj.dpoints > bj.ppoints) {
-        winner = 1; message = "Dealer wins with " + bj.dpoints + " points! You lost "+document.getElementById("play-bet").value+" D$T!";
+        winner = 1; message = "Dealer wins with " + bj.dpoints + " points! You lost "+bj.bet+" D$T!";
+        db.set(bj.name, db.get(bj.name)-bj.bet);
       }
       // PLAYER HAS MORE POINTS
       else if (bj.dpoints < bj.ppoints) {
-        winner = 0; message = "Player wins with " + bj.ppoints + " points! You won "+document.getElementById("play-bet").value+" D$T!";
+        winner = 0; message = "Player wins with " + bj.ppoints + " points! You won "+bj.bet+" D$T!";
+        db.set(bj.name, db.get(bj.name)+bj.bet);
       }
       // TIE
       else {
