@@ -1,6 +1,3 @@
-const Database = require("@replit/database")
-const db = new Database()
-
 var bj = {
   // (A) PROPERTIES
   // (A1) HTML REFERENCES
@@ -23,7 +20,6 @@ var bj = {
   pstand : false, // player has stood
   turn : 0,       // who's turn now? 0 for player, 1 for dealer (computer)
   bet : 0,
-  name : "",
 
   // (B) INITIALIZE GAME
   init : () => {
@@ -46,7 +42,6 @@ var bj = {
   // (C) START NEW GAME
   start : () => {
     bj.bet = document.getElementById("play-bet").value
-    bj.name = document.getElementById("play-name").value
 
     // (C1) RESET POINTS, HANDS, DECK, TURN, AND HTML
     bj.deck = [];  bj.dealer = [];  bj.player = [];
