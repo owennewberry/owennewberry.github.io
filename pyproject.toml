@@ -8,6 +8,7 @@ authors = ["OwenNewberry <<>>"]
 python = "^3.8"
 replit = "^3.2.4"
 discord = "^1.7.3"
+slots = "^0.4.0"
 
 [tool.poetry.dev-dependencies]
 
