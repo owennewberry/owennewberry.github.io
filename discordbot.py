@@ -194,8 +194,8 @@ async def on_message(message):
         nftList.close()
         db[author] -= 10000
         updateDatabase()
-  time.sleep(.25)
+  time.sleep(.025)
 
-time.sleep(.25)
+time.sleep(.025)
 
 client.run(os.environ['TOKEN'])
