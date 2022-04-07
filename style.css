@@ -17,3 +17,7 @@
     font-weight: bold; /*boldens text in the span element*/
     font-size: 30px; /*changes the text size in the span element*/
 }
+
+p { 
+    color: #ffffff;
+  }
