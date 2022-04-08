@@ -1,4 +1,4 @@
-let date = new Date(2022,3,8,8,30,0);
+let date = new Date(2022,3,8,8,37,0);
 let start = new Date();
 
 timeLeft = date-start;
